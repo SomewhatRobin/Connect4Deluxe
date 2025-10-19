@@ -168,6 +168,15 @@ public class InvisHand : MonoBehaviour
             //TODO: Add 3 to the proper spot in onBoard.
             //Maybe have a separate function for this?
             //This is copy/pastable, so be sure to for the others
+			for (int row = 0; row < boardHeight; row++)
+			{
+            if (onBoard[0, row] == 0) //Finds empty spot
+				{
+					onBoard[0, row] = 3;
+					break;
+				}
+				
+			}
         }
         else
         {
@@ -180,6 +189,15 @@ public class InvisHand : MonoBehaviour
         {
             Instantiate(GarbChip, starsAbove[1].transform.position, Quaternion.Euler(0f, 90f, 0f));
             //This is copy/pastable, so be sure to for the others
+			for (int row = 0; row < boardHeight; row++)
+			{
+            if (onBoard[1, row] == 0) //Finds empty spot
+				{
+					onBoard[1, row] = 3;
+						break;
+				}
+				
+			}
         }
         else
         {
@@ -190,6 +208,15 @@ public class InvisHand : MonoBehaviour
         {
             Instantiate(GarbChip, starsAbove[2].transform.position, Quaternion.Euler(0f, 90f, 0f));
             //This is copy/pastable, so be sure to for the others
+			for (int row = 0; row < boardHeight; row++)
+			{
+            if (onBoard[2, row] == 0) //Finds empty spot
+				{
+					onBoard[2, row] = 3;
+						break;
+				}
+				
+			}
         }
         else
         {
@@ -201,6 +228,15 @@ public class InvisHand : MonoBehaviour
           Instantiate(GarbChip, starsAbove[3].transform.position, Quaternion.Euler(0f, 90f, 0f));
             //This is copy/pastable, so be sure to for the others
             //Possibly add a win con if this makes col 3 full
+			for (int row = 0; row < boardHeight; row++)
+			{
+            if (onBoard[3, row] == 0) //Finds empty spot
+				{
+					onBoard[3, row] = 3;
+						break;
+				}
+				
+			}
         }
         else
         {
@@ -212,6 +248,15 @@ public class InvisHand : MonoBehaviour
         {
             Instantiate(GarbChip, starsAbove[4].transform.position, Quaternion.Euler(0f, 90f, 0f));
             //This is copy/pastable, so be sure to for the others
+			for (int row = 0; row < boardHeight; row++)
+			{
+            if (onBoard[4, row] == 0) //Finds empty spot
+				{
+					onBoard[4, row] = 3;
+						break;
+				}
+				
+			}
         }
         else
         {
@@ -222,6 +267,15 @@ public class InvisHand : MonoBehaviour
         {
           Instantiate(GarbChip, starsAbove[5].transform.position, Quaternion.Euler(0f, 90f, 0f));
             //This is copy/pastable, so be sure to for the others
+			for (int row = 0; row < boardHeight; row++)
+			{
+            if (onBoard[5, row] == 0) //Finds empty spot
+				{
+					onBoard[5, row] = 3;
+						break;
+				}
+				
+			}
         }
         else
         {
@@ -232,6 +286,15 @@ public class InvisHand : MonoBehaviour
         {
             Instantiate(GarbChip, starsAbove[6].transform.position, Quaternion.Euler(0f, 90f, 0f));
             //This is copy/pastable, so be sure to for the others
+			for (int row = 0; row < boardHeight; row++)
+			{
+            if (onBoard[6, row] == 0) //Finds empty spot
+				{
+					onBoard[6, row] = 3;
+						break;
+				}
+				
+			}
         }
         else
         {
