@@ -10,6 +10,10 @@ public class InvisHand : MonoBehaviour
     public GameObject GarbChip;
     public GameObject P1Ghost;
     public GameObject P2Ghost;
+    //TODO: This is an array of prefabs, there are 3 variants Hrz, Vrt, Diag
+    public GameObject[] WinLight;
+    
+
 
    // bool whoTurn = false;
 
@@ -30,6 +34,7 @@ public class InvisHand : MonoBehaviour
     public int selColumn = 3;
     public GameObject[] handOver;
     public GameObject[] starsAbove;
+    public Transform[] winSpots;
 
     // Start is called before the first frame update
     void Start()
@@ -98,7 +103,12 @@ public class InvisHand : MonoBehaviour
         }
 
 
-      
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            // Debug SwapTurn Activator
+            SwapTurn();
+        }
+
 
     }
 
@@ -381,7 +391,8 @@ public class InvisHand : MonoBehaviour
 
     bool DidWin(int playerNum)
     { 
-        //Horizontal Check
+        // winSpots[] Order mirrors order within array
+        //Horizontal Check - [0]
         for (int x = 0; x < boardWidth - 3; x++)
         {
             for (int y = 0; y < boardHeight; y++)
@@ -389,12 +400,13 @@ public class InvisHand : MonoBehaviour
                 if (onBoard[x,y] == playerNum && onBoard[x + 1, y] == playerNum &&
                     onBoard[x + 2, y] == playerNum && onBoard[x + 3, y] == playerNum)
                 {
+                    Instantiate(WinLight[0], new Vector3(winSpots[0].position.x, winSpots[0].position.y, winSpots[0].position.z), Quaternion.identity);
                     return true;
                 }
             }
         }
 
-        //Vertical check
+        //Vertical check - [1]
         for (int x = 0; x < boardWidth; x++)
         {
             for (int y = 0; y < boardHeight - 3; y++)
@@ -402,12 +414,13 @@ public class InvisHand : MonoBehaviour
                 if (onBoard[x, y] == playerNum && onBoard[x, y + 1] == playerNum &&
                     onBoard[x, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
                 {
+                    Instantiate(WinLight[1], new Vector3(winSpots[1].position.x, winSpots[1].position.y, winSpots[1].position.z), Quaternion.identity);
                     return true;
                 }
             }
         }
 
-        //Diag Upstairs
+        //Diag Upstairs - [2]
         for (int x = 0; x < boardWidth - 3; x++)
         {
             for (int y = 0; y < boardHeight - 3; y++)
@@ -420,7 +433,7 @@ public class InvisHand : MonoBehaviour
             }
         }
 
-        //Diag Reading
+        //Diag Reading - [3]
         for (int x = 0; x < boardWidth - 3; x++)
         {
             for (int y = 0; y < boardHeight - 3; y++)
