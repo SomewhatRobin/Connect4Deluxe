@@ -23,7 +23,7 @@ public class InvisHand : MonoBehaviour
     public KeyCode AbiliKey;
     public KeyCode LeftKey;
     public KeyCode RightKey;
-
+    
 
 
    // private bool myWay = true;
@@ -92,7 +92,7 @@ public class InvisHand : MonoBehaviour
 
         if (Input.GetKeyDown(AbiliKey))
         {
-            BoardFill();
+            BoardFill(); //If you feel froggy again, GarbDump. 
             //This takes turn, so it calls SwapTurn
             SwapTurn();
         }
@@ -130,6 +130,10 @@ public class InvisHand : MonoBehaviour
             {
                 Debug.LogWarning("Player 1 Wins!");
             }
+            else if (DidDraw())
+            {
+                Debug.LogWarning("It's a Draw!");
+            }
         }
         else if (nowPlaying == Player2Chip)
         {
@@ -139,6 +143,10 @@ public class InvisHand : MonoBehaviour
             if (DidWin(2) == true)
             {
                 Debug.LogWarning("Player 2 Wins!");
+            }
+            else if (DidDraw())
+            {
+                Debug.LogWarning("It's a Draw!");
             }
         }
         /* //Forbidden Spray Nozzle
@@ -171,6 +179,7 @@ public class InvisHand : MonoBehaviour
 
     }
 
+  //BoardFill, as it was
     void BoardFill()
     {
         //Quaternion.Euler(0f,90f,0f)
@@ -319,6 +328,8 @@ public class InvisHand : MonoBehaviour
 
     }
 
+  
+
 
 	//Might be able to cut out turn variable, this was a fix that didn't need to happen
     //TODO: Add a Update method for Garbage Dump
@@ -356,6 +367,17 @@ public class InvisHand : MonoBehaviour
 
     //Considering using a lit cube/capsule for win indication
     //Can have the cube start between board and back wall, extend past pieces for visibility, to back wall for *aesthetics*
+    bool DidDraw()
+    {
+        for (int x = 0; x < boardWidth; x++)
+        {
+            if (onBoard[x, boardHeight - 1] == 0)
+            { 
+                return false; 
+            }
+        }
+        return true;
+    }
 
     bool DidWin(int playerNum)
     { 
@@ -415,4 +437,5 @@ public class InvisHand : MonoBehaviour
     }
 
 }
+
 
