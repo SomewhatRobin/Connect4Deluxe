@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7178951896392499025}
   - component: {fileID: 4742871905926316362}
   - component: {fileID: 8843896983390371970}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Hitbox
   m_TagString: P2Chip
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8394518937756813951, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8394518937756813951, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_TagString
@@ -187,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: bf123a9bf8f20b24f9bfba136363a0c2, type: 2}
     - target: {fileID: -526998629829411944, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -526998629829411944, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_TagString
@@ -195,7 +195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -391268320553695201, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -391268320553695201, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_TagString
@@ -207,7 +207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_TagString
@@ -215,7 +215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5311507813187359292, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5311507813187359292, guid: c52b9f4375248e34eb81f889dfe8a761, type: 3}
       propertyPath: m_TagString

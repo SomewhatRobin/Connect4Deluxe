@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7902467123140063112}
   - component: {fileID: 4971328777763268755}
   - component: {fileID: 1171352626894921133}
-  m_Layer: 9
+  m_Layer: 3
   m_Name: HitboxG
   m_TagString: GarbChip
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 02133144a44745f4db297aa37c1a39bf, type: 2}
     - target: {fileID: -5568371526223589888, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_TagString
@@ -187,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_TagString
@@ -203,7 +203,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 02133144a44745f4db297aa37c1a39bf, type: 2}
     - target: {fileID: 5879669133420947083, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5879669133420947083, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_TagString
@@ -211,7 +211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630668333336187512, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6630668333336187512, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_TagString
@@ -219,7 +219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153757723986620583, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7153757723986620583, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_TagString
@@ -231,7 +231,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c1c9e50e37ff6e1469cd1a2d78963716, type: 2}
     - target: {fileID: 7988082282658739682, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7988082282658739682, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_TagString

@@ -8,8 +8,10 @@ public class InvisHand : MonoBehaviour
     public GameObject Player1Chip;
     public GameObject Player2Chip;
     public GameObject GarbChip;
+    public GameObject P1Ghost;
+    public GameObject P2Ghost;
 
-    bool whoTurn = false;
+   // bool whoTurn = false;
 
     private GameObject nowPlaying;
 
@@ -32,9 +34,24 @@ public class InvisHand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nowPlaying = Player1Chip;
-        transform.position = new Vector3 (handOver[3].transform.position.x, handOver[3].transform.position.y + 0.5f, handOver[3].transform.position.z);
+
+        //"Coin-flip" chance for either player to go first. Seems to really like P2 goin first, may overhaul this so it works with a start button instead
+        if (Random.value > .5f)
+        {
+            nowPlaying = Player2Chip;
+            P1Ghost.SetActive(false);
+
+        }
+        else
+        {
+            nowPlaying = Player1Chip;
+            P2Ghost.SetActive(false);
+        }
+
+        transform.position = new Vector3(handOver[3].transform.position.x, handOver[3].transform.position.y + 0.5f, handOver[3].transform.position.z);
         onBoard = new int[boardWidth, boardHeight];
+    
+        
     }
 
 
@@ -87,20 +104,8 @@ public class InvisHand : MonoBehaviour
 
     void PlaceChip(GameObject curPlayer, int column)
     {
-        if (curPlayer == Player1Chip)
-        {
-            whoTurn = false;
-        }
-        else if (curPlayer == Player2Chip)
-        {
-            whoTurn = true;
-        }
-        else
-        {
-            Debug.Log("Didn't Update whoTurn neener neener");
-        }
 
-        if (UpdateOnBoard(whoTurn, column))
+        if (UpdateOnBoard(curPlayer, column))
         {
             Instantiate(curPlayer, handOver[column].transform.position, Quaternion.identity);
 
@@ -118,13 +123,23 @@ public class InvisHand : MonoBehaviour
 
         if (nowPlaying == Player1Chip)
         {
+            P1Ghost.SetActive(false);
             nowPlaying = Player2Chip;
-            
+            P2Ghost.SetActive(true);
+            if (DidWin(1) == true)
+            {
+                Debug.LogWarning("Player 1 Wins!");
+            }
         }
         else if (nowPlaying == Player2Chip)
         {
+            P2Ghost.SetActive(false);
             nowPlaying = Player1Chip;
-            
+            P1Ghost.SetActive(true);
+            if (DidWin(2) == true)
+            {
+                Debug.LogWarning("Player 2 Wins!");
+            }
         }
         /* //Forbidden Spray Nozzle
         if(selColumn < 5 && selColumn > 1 && myWay)
@@ -165,15 +180,15 @@ public class InvisHand : MonoBehaviour
         {
             //Places the Garbage
             Instantiate(GarbChip, starsAbove[0].transform.position, Quaternion.Euler(0f, 90f, 0f));
-            //TODO: Add 3 to the proper spot in onBoard.
-            //Maybe have a separate function for this?
-            //This is copy/pastable, so be sure to for the others
+            
+
 			for (int row = 0; row < boardHeight; row++)
 			{
             if (onBoard[0, row] == 0) //Finds empty spot
 				{
+                    //Adds garbage to that spot
 					onBoard[0, row] = 3;
-					break;
+					break; //So the entire column doesn't count as being filled with Garbage
 				}
 				
 			}
@@ -188,7 +203,7 @@ public class InvisHand : MonoBehaviour
         if (onBoard[1, boardHeight - 1] == 0)
         {
             Instantiate(GarbChip, starsAbove[1].transform.position, Quaternion.Euler(0f, 90f, 0f));
-            //This is copy/pastable, so be sure to for the others
+   
 			for (int row = 0; row < boardHeight; row++)
 			{
             if (onBoard[1, row] == 0) //Finds empty spot
@@ -207,7 +222,7 @@ public class InvisHand : MonoBehaviour
         if (onBoard[2, boardHeight - 1] == 0)
         {
             Instantiate(GarbChip, starsAbove[2].transform.position, Quaternion.Euler(0f, 90f, 0f));
-            //This is copy/pastable, so be sure to for the others
+   
 			for (int row = 0; row < boardHeight; row++)
 			{
             if (onBoard[2, row] == 0) //Finds empty spot
@@ -226,7 +241,7 @@ public class InvisHand : MonoBehaviour
         if (onBoard[3, boardHeight - 1] == 0)
         {
           Instantiate(GarbChip, starsAbove[3].transform.position, Quaternion.Euler(0f, 90f, 0f));
-            //This is copy/pastable, so be sure to for the others
+   
             //Possibly add a win con if this makes col 3 full
 			for (int row = 0; row < boardHeight; row++)
 			{
@@ -247,7 +262,7 @@ public class InvisHand : MonoBehaviour
         if (onBoard[4, boardHeight - 1] == 0)
         {
             Instantiate(GarbChip, starsAbove[4].transform.position, Quaternion.Euler(0f, 90f, 0f));
-            //This is copy/pastable, so be sure to for the others
+   
 			for (int row = 0; row < boardHeight; row++)
 			{
             if (onBoard[4, row] == 0) //Finds empty spot
@@ -266,7 +281,7 @@ public class InvisHand : MonoBehaviour
         if (onBoard[5, boardHeight - 1] == 0)
         {
           Instantiate(GarbChip, starsAbove[5].transform.position, Quaternion.Euler(0f, 90f, 0f));
-            //This is copy/pastable, so be sure to for the others
+   
 			for (int row = 0; row < boardHeight; row++)
 			{
             if (onBoard[5, row] == 0) //Finds empty spot
@@ -285,7 +300,7 @@ public class InvisHand : MonoBehaviour
         if (onBoard[6, boardHeight - 1] == 0)
         {
             Instantiate(GarbChip, starsAbove[6].transform.position, Quaternion.Euler(0f, 90f, 0f));
-            //This is copy/pastable, so be sure to for the others
+   
 			for (int row = 0; row < boardHeight; row++)
 			{
             if (onBoard[6, row] == 0) //Finds empty spot
@@ -308,17 +323,17 @@ public class InvisHand : MonoBehaviour
 	//Might be able to cut out turn variable, this was a fix that didn't need to happen
     //TODO: Add a Update method for Garbage Dump
     //TODO: Add some detection for not using GarbDump on a spec. column if it's full.
-    bool UpdateOnBoard(bool turn, int column)
+    bool UpdateOnBoard(GameObject curPlayer, int column)
     {
         for (int row = 0; row < boardHeight; row++)
         {
             if (onBoard[column, row] == 0) //Finds empty spot
             {
-                if (!turn)
+                if (curPlayer == Player1Chip)
                 {
                     onBoard[column, row] = 1;
                 }
-                else if (turn) 
+                else if (curPlayer == Player2Chip) 
                 {
                     onBoard[column, row] = 2;
                 }
@@ -334,6 +349,70 @@ public class InvisHand : MonoBehaviour
         return false;
     }
 
+    //Bottom Left of Board is x = 3.4, y = 3.8, z = 0.0334
+    //3rd Row, Middle Column is x = 6.4, y = 5.8, z = 0.0334
+    //Top Right of Board is x = 9.4, y = 8.8, z = 0.0334
+    //A Cube w/ x,y = 1 / z = 2.3 scale covers the cells at those positions 
+
+    //Considering using a lit cube/capsule for win indication
+    //Can have the cube start between board and back wall, extend past pieces for visibility, to back wall for *aesthetics*
+
+    bool DidWin(int playerNum)
+    { 
+        //Horizontal Check
+        for (int x = 0; x < boardWidth - 3; x++)
+        {
+            for (int y = 0; y < boardHeight; y++)
+            {
+                if (onBoard[x,y] == playerNum && onBoard[x + 1, y] == playerNum &&
+                    onBoard[x + 2, y] == playerNum && onBoard[x + 3, y] == playerNum)
+                {
+                    return true;
+                }
+            }
+        }
+
+        //Vertical check
+        for (int x = 0; x < boardWidth; x++)
+        {
+            for (int y = 0; y < boardHeight - 3; y++)
+            {
+                if (onBoard[x, y] == playerNum && onBoard[x, y + 1] == playerNum &&
+                    onBoard[x, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
+                {
+                    return true;
+                }
+            }
+        }
+
+        //Diag Upstairs
+        for (int x = 0; x < boardWidth - 3; x++)
+        {
+            for (int y = 0; y < boardHeight - 3; y++)
+            {
+                if (onBoard[x, y] == playerNum && onBoard[x + 1, y+1] == playerNum &&
+                    onBoard[x + 2, y+2] == playerNum && onBoard[x + 3, y+3] == playerNum)
+                {
+                    return true;
+                }
+            }
+        }
+
+        //Diag Reading
+        for (int x = 0; x < boardWidth - 3; x++)
+        {
+            for (int y = 0; y < boardHeight - 3; y++)
+            {
+                if (onBoard[x + 3, y] == playerNum && onBoard[x + 2, y + 1] == playerNum &&
+                    onBoard[x + 1, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 }
 
