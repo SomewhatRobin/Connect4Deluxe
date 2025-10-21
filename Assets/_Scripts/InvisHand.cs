@@ -35,6 +35,8 @@ public class InvisHand : MonoBehaviour
     public GameObject[] handOver;
     public GameObject[] starsAbove;
     public Transform[] winSpots;
+    //private float xOffset = 0f;
+  //  private float yOffset = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -95,13 +97,17 @@ public class InvisHand : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(AbiliKey))
+        if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6))
         {
             BoardFill(); //If you feel froggy again, GarbDump. 
             //This takes turn, so it calls SwapTurn
             SwapTurn();
         }
-
+        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5))
+        {
+            //Column Slash
+            SwapTurn();
+        }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -375,8 +381,6 @@ public class InvisHand : MonoBehaviour
     //Top Right of Board is x = 9.4, y = 8.8, z = 0.0334
     //A Cube w/ x,y = 1 / z = 2.3 scale covers the cells at those positions 
 
-    //Considering using a lit cube/capsule for win indication
-    //Can have the cube start between board and back wall, extend past pieces for visibility, to back wall for *aesthetics*
     bool DidDraw()
     {
         for (int x = 0; x < boardWidth; x++)
@@ -400,7 +404,10 @@ public class InvisHand : MonoBehaviour
                 if (onBoard[x,y] == playerNum && onBoard[x + 1, y] == playerNum &&
                     onBoard[x + 2, y] == playerNum && onBoard[x + 3, y] == playerNum)
                 {
-                    Instantiate(WinLight[0], new Vector3(winSpots[0].position.x, winSpots[0].position.y, winSpots[0].position.z), Quaternion.identity);
+                    //Offsets to where the script found the win
+                    Instantiate(WinLight[0], new Vector3(winSpots[0].position.x + (float)x,
+                                                         winSpots[0].position.y + (float)y,
+                                                         winSpots[0].position.z), Quaternion.identity);
                     return true;
                 }
             }
@@ -414,7 +421,10 @@ public class InvisHand : MonoBehaviour
                 if (onBoard[x, y] == playerNum && onBoard[x, y + 1] == playerNum &&
                     onBoard[x, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
                 {
-                    Instantiate(WinLight[1], new Vector3(winSpots[1].position.x, winSpots[1].position.y, winSpots[1].position.z), Quaternion.identity);
+                    //Offsets to where the script found the win
+                    Instantiate(WinLight[1], new Vector3(winSpots[1].position.x + (float)x,
+                                                         winSpots[1].position.y + (float)y,
+                                                         winSpots[1].position.z), Quaternion.identity);
                     return true;
                 }
             }
@@ -428,6 +438,10 @@ public class InvisHand : MonoBehaviour
                 if (onBoard[x, y] == playerNum && onBoard[x + 1, y+1] == playerNum &&
                     onBoard[x + 2, y+2] == playerNum && onBoard[x + 3, y+3] == playerNum)
                 {
+                    //Offsets to where the script found the win, rotates to match the winspot transform
+                    Instantiate(WinLight[2], new Vector3(winSpots[2].position.x + (float)x,
+                                                         winSpots[2].position.y + (float)y,
+                                                         winSpots[2].position.z), Quaternion.Euler(0f, 0f, 45f));
                     return true;
                 }
             }
@@ -441,6 +455,9 @@ public class InvisHand : MonoBehaviour
                 if (onBoard[x + 3, y] == playerNum && onBoard[x + 2, y + 1] == playerNum &&
                     onBoard[x + 1, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
                 {
+                    Instantiate(WinLight[2], new Vector3(winSpots[3].position.x + (float)x,
+                                                         winSpots[3].position.y + (float)y,
+                                                         winSpots[3].position.z), Quaternion.Euler(0f, 0f, 135f));
                     return true;
                 }
             }
