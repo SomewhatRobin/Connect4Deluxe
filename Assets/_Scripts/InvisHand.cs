@@ -23,7 +23,7 @@ public class InvisHand : MonoBehaviour
 
     public int boardHeight = 6;
     public int boardWidth = 7;
-    private int[,] onBoard; //0 is empty, 1 is P1Chip, 2 is P2Chip, 3 is GarbageChip
+    public int[,] onBoard; //0 is empty, 1 is P1Chip, 2 is P2Chip, 3 is GarbageChip
 
     public KeyCode PlaceKey;
     public KeyCode AbiliKey;
@@ -32,7 +32,7 @@ public class InvisHand : MonoBehaviour
     
 
 
-    static public bool chipHeld = true; //Condition check for if either player would be holding a chip/isn't paused
+    public bool chipHeld = true; //Condition check for if either player would be holding a chip/isn't paused
     static public int selColumn = 3;
     public GameObject[] handOver;
     public GameObject[] starsAbove;
@@ -59,14 +59,16 @@ public class InvisHand : MonoBehaviour
             nowPlaying = Player1Chip;
             P2Ghost.SetActive(false);
         }
-
-       
+        //
 
         transform.position = new Vector3(handOver[3].transform.position.x, handOver[3].transform.position.y + 0.5f, handOver[3].transform.position.z);
         onBoard = new int[boardWidth, boardHeight];
-    
-        
+
+
     }
+
+   
+
 
 
 
@@ -113,11 +115,18 @@ public class InvisHand : MonoBehaviour
 
         else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5) && chipHeld)
         {
+            //Swap to Knife Mode
             MageHand.SetActive(true);
             KnifeGhost.SetActive(true);
             chipHeld = false;
             //Column Slash would've been a script here, but it's like 4 of them now.
-            Hexed();
+
+        }
+
+        else if (Input.GetKeyDown(AbiliKey) && !chipHeld)
+        {
+            //Swap to Chip Mode
+            Invoke("Hexed", 0.07f);
 
         }
 
@@ -130,11 +139,23 @@ public class InvisHand : MonoBehaviour
 
     }
 
-    //TODO: Remember what else this was supposed to do
-    private static void Hexed()
+    //Puts the chip back in hand, turns off MageHand
+    //Can add stuff for other aimable abilities, if necessary
+    public void Hexed()
     {
         chipHeld = true;
+        KnifeGhost.SetActive(false);
+        if (nowPlaying == Player1Chip)
+        {
+            P1Ghost.SetActive(true);
+        }
+        else if (nowPlaying == Player2Chip)
+        {
+            P2Ghost.SetActive(true);
+        }
     }
+
+
 
     void PlaceChip(GameObject curPlayer, int column)
     {

@@ -4509,6 +4509,7 @@ MonoBehaviour:
   AbiliKey: 120
   LeftKey: 276
   RightKey: 275
+  chipHeld: 1
   handOver:
   - {fileID: 1215957057}
   - {fileID: 1592240460}
@@ -5265,6 +5266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1465975392}
+  - component: {fileID: 1465975393}
   m_Layer: 0
   m_Name: EntireBoard
   m_TagString: Untagged
@@ -5306,6 +5308,18 @@ Transform:
   - {fileID: 461564180}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1465975393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465975391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a754c913a931849b90841d32e5785a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1469686149
 GameObject:
   m_ObjectHideFlags: 0
@@ -6616,6 +6630,7 @@ MonoBehaviour:
   - {fileID: 1709160011}
   - {fileID: 417006731}
   sliColumn: 2
+  nvisHand: {fileID: 0}
   PlaceKey: 122
   AbiliKey: 115
   LeftKey: 276
