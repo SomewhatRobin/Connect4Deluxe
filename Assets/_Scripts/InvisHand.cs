@@ -10,6 +10,8 @@ public class InvisHand : MonoBehaviour
     public GameObject GarbChip;
     public GameObject P1Ghost;
     public GameObject P2Ghost;
+    public GameObject KnifeGhost;
+    public GameObject MageHand;
     //TODO: This is an array of prefabs, there are 3 variants Hrz, Vrt, Diag
     public GameObject[] WinLight;
     
@@ -30,8 +32,8 @@ public class InvisHand : MonoBehaviour
     
 
 
-   // private bool myWay = true;
-    public int selColumn = 3;
+    static public bool chipHeld = true; //Condition check for if either player would be holding a chip/isn't paused
+    static public int selColumn = 3;
     public GameObject[] handOver;
     public GameObject[] starsAbove;
     public Transform[] winSpots;
@@ -41,6 +43,9 @@ public class InvisHand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Turn off the knife
+        KnifeGhost.SetActive(false);
+        MageHand.SetActive(false);
 
         //"Coin-flip" chance for either player to go first. Seems to really like P2 goin first, may overhaul this so it works with a start button instead
         if (Random.value > .5f)
@@ -55,6 +60,8 @@ public class InvisHand : MonoBehaviour
             P2Ghost.SetActive(false);
         }
 
+       
+
         transform.position = new Vector3(handOver[3].transform.position.x, handOver[3].transform.position.y + 0.5f, handOver[3].transform.position.z);
         onBoard = new int[boardWidth, boardHeight];
     
@@ -67,7 +74,7 @@ public class InvisHand : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(PlaceKey))
+        if (Input.GetKeyDown(PlaceKey) && chipHeld)
         {
             PlaceChip(nowPlaying, selColumn);
             //PlaceChip calls SwapTurn
@@ -97,16 +104,21 @@ public class InvisHand : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6))
+        if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6) && chipHeld)
         {
             BoardFill(); //If you feel froggy again, GarbDump. 
             //This takes turn, so it calls SwapTurn
             SwapTurn();
         }
-        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5))
+
+        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5) && chipHeld)
         {
-            //Column Slash
-            SwapTurn();
+            MageHand.SetActive(true);
+            KnifeGhost.SetActive(true);
+            chipHeld = false;
+            //Column Slash would've been a script here, but it's like 4 of them now.
+            Hexed();
+
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -116,6 +128,12 @@ public class InvisHand : MonoBehaviour
         }
 
 
+    }
+
+    //TODO: Remember what else this was supposed to do
+    private static void Hexed()
+    {
+        chipHeld = true;
     }
 
     void PlaceChip(GameObject curPlayer, int column)
@@ -195,7 +213,7 @@ public class InvisHand : MonoBehaviour
 
     }
 
-  //BoardFill, as it was
+
     void BoardFill()
     {
         //Quaternion.Euler(0f,90f,0f)
@@ -345,6 +363,10 @@ public class InvisHand : MonoBehaviour
     }
 
   
+    void ColumnSlash()
+    {
+
+    }
 
 
 	//Might be able to cut out turn variable, this was a fix that didn't need to happen
