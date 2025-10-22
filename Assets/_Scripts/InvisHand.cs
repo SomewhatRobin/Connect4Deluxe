@@ -172,7 +172,7 @@ public class InvisHand : MonoBehaviour
 
 
 
-    void SwapTurn()
+    public void SwapTurn()
     {
 
 

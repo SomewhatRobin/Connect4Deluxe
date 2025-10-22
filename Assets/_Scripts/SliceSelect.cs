@@ -62,11 +62,11 @@ public class SliceSelect : MonoBehaviour
             {
                
                 allDone = true;
-                Invoke("ExorciseKnife", 0.1f);
+                Invoke("ExorciseKnife", 0.11f);
                 ColumnSlash(sliColumn);
                 Instantiate(DropKnife, knifeOver[sliColumn].position, Quaternion.identity);
-             
-                Invoke("SwapToChip", 0.6f);
+                Invoke("SwapToChip", 0.03f);
+                nvisHand.SwapTurn();
             }
 
             if (Input.GetKeyDown(AbiliKey) && !allDone)
@@ -110,10 +110,10 @@ public class SliceSelect : MonoBehaviour
     private void SwapToChip()
     {
         nvisHand.chipHeld = true;
-        Invoke("readyUp",0.08f);
+        Invoke("readyUp",0.05f);
     }
 
-    private static void readyUp()
+    private void readyUp()
     {
         allDone = false;
     }
