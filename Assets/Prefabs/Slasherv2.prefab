@@ -185,6 +185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slasherv2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c1e37b870adae4044a16e31c2b885164, type: 3}
+      propertyPath: m_TagString
+      value: Knife
+      objectReference: {fileID: 0}
     - target: {fileID: 2164839006548940668, guid: c1e37b870adae4044a16e31c2b885164, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -233,6 +237,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c1e37b870adae4044a16e31c2b885164, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5844345085536403496}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c1e37b870adae4044a16e31c2b885164, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1165636633378998925}
   m_SourcePrefab: {fileID: 100100000, guid: c1e37b870adae4044a16e31c2b885164, type: 3}
 --- !u!1 &550692009400871545 stripped
 GameObject:
@@ -292,6 +299,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallForce: 34.1
+--- !u!114 &-1165636633378998925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550692009400871545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4192239cd00924c4686dfeac679dcac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &932143811470848195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c1e37b870adae4044a16e31c2b885164, type: 3}

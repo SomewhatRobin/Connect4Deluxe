@@ -8,11 +8,12 @@ public class InvisHand : MonoBehaviour
     public GameObject Player1Chip;
     public GameObject Player2Chip;
     public GameObject GarbChip;
+
     public GameObject P1Ghost;
     public GameObject P2Ghost;
     public GameObject KnifeGhost;
     public GameObject MageHand;
-    //TODO: This is an array of prefabs, there are 3 variants Hrz, Vrt, Diag
+    //This is an array of prefabs, there are 3 variants: Hrz, Vrt, Diag
     public GameObject[] WinLight;
     
 
@@ -34,11 +35,12 @@ public class InvisHand : MonoBehaviour
 
     public bool chipHeld = true; //Condition check for if either player would be holding a chip/isn't paused
     static public int selColumn = 3;
+    public int usedColumn = 0; //Value to track which column activates an ability (For ColSlash/ GS:H)
+    public bool[] usedUp = new bool[7]; //Array for if abilities have been used in a round
     public GameObject[] handOver;
     public GameObject[] starsAbove;
     public Transform[] winSpots;
-    //private float xOffset = 0f;
-  //  private float yOffset = 0f;
+  
 
     // Start is called before the first frame update
     void Start()
@@ -63,11 +65,12 @@ public class InvisHand : MonoBehaviour
 
         transform.position = new Vector3(handOver[3].transform.position.x, handOver[3].transform.position.y + 0.5f, handOver[3].transform.position.z);
         onBoard = new int[boardWidth, boardHeight];
+        
 
 
     }
 
-   
+
 
 
 
@@ -75,6 +78,7 @@ public class InvisHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
 
         if (Input.GetKeyDown(PlaceKey) && chipHeld)
         {
@@ -84,12 +88,12 @@ public class InvisHand : MonoBehaviour
 
         if (Input.GetKeyDown(LeftKey))
         {
-            if(selColumn > 0)
+            if (selColumn > 0)
             {
                 selColumn--;
                 transform.position = handOver[selColumn].transform.position;
             }
-            
+
             //Else play nuh-uh.wav
 
         }
@@ -106,20 +110,25 @@ public class InvisHand : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6) && chipHeld)
+        if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6) && chipHeld && !usedUp[selColumn])
         {
-            BoardFill(); //If you feel froggy again, GarbDump. 
+            usedUp[selColumn] = true;
+            BoardFill();
             //This takes turn, so it calls SwapTurn
             SwapTurn();
         }
 
-        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5) && chipHeld)
+        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5) && chipHeld && !usedUp[selColumn])
         {
+            //Store selCol in case the knife is dropped
+            usedColumn = selColumn;
+
+
             //Swap to Knife Mode
             MageHand.SetActive(true);
             KnifeGhost.SetActive(true);
             chipHeld = false;
-            //Column Slash would've been a script here, but it's like 4 of them now.
+            
 
         }
 
@@ -130,14 +139,24 @@ public class InvisHand : MonoBehaviour
 
         }
 
+        /*
         if (Input.GetKeyDown(KeyCode.C))
         {
             // Debug SwapTurn Activator
             SwapTurn();
         }
-
+        */
 
     }
+
+    public void DispelMagic()
+    {
+        //Turns off MageHand so Knife defaults to the selected column/doesn't have visual mismatch
+        MageHand.SetActive(false);
+    }
+
+
+
 
     //Puts the chip back in hand, turns off MageHand
     //Can add stuff for other aimable abilities, if necessary
@@ -153,6 +172,8 @@ public class InvisHand : MonoBehaviour
         {
             P2Ghost.SetActive(true);
         }
+
+        Invoke("DispelMagic", 0.1f);
     }
 
 
@@ -203,6 +224,8 @@ public class InvisHand : MonoBehaviour
             {
                 Debug.LogWarning("It's a Draw!");
             }
+            Invoke("DispelMagic", 0.1f);
+
         }
         /* //Forbidden Spray Nozzle
         if(selColumn < 5 && selColumn > 1 && myWay)
@@ -237,7 +260,7 @@ public class InvisHand : MonoBehaviour
 
     void BoardFill()
     {
-        //Quaternion.Euler(0f,90f,0f)
+        //Quaternion.Euler(0f,90f,0f) to rotate GarbChips to match other chips
 
         //Check for col 0 full
         if (onBoard[0, boardHeight - 1] == 0)
@@ -383,16 +406,8 @@ public class InvisHand : MonoBehaviour
 
     }
 
-  
-    void ColumnSlash()
-    {
-
-    }
 
 
-	//Might be able to cut out turn variable, this was a fix that didn't need to happen
-    //TODO: Add a Update method for Garbage Dump
-    //TODO: Add some detection for not using GarbDump on a spec. column if it's full.
     bool UpdateOnBoard(GameObject curPlayer, int column)
     {
         for (int row = 0; row < boardHeight; row++)

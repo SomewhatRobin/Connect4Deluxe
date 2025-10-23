@@ -8,7 +8,7 @@ public class SliceSelect : MonoBehaviour
     public GameObject GhostKnife;
     public Transform[] handOver;
     public Transform[] knifeOver;
-    public int sliColumn = 2;
+    public int sliColumn;
 
     static public bool allDone = false;
     public InvisHand nvisHand;
@@ -22,7 +22,7 @@ public class SliceSelect : MonoBehaviour
     void OnEnable()
     {
         nvisHand = GetComponentInParent<InvisHand>();
-        sliColumn = InvisHand.selColumn;
+        sliColumn = nvisHand.usedColumn;
         transform.position = handOver[sliColumn].position;
         transform.rotation = handOver[sliColumn].rotation;
     }
@@ -60,7 +60,7 @@ public class SliceSelect : MonoBehaviour
             //TODO: Add in InvisHand.Hexed() from InvisHand
             if (Input.GetKeyDown(PlaceKey) && !allDone)
             {
-               
+                nvisHand.usedUp[nvisHand.usedColumn] = true;
                 allDone = true;
                 Invoke("ExorciseKnife", 0.11f);
                 ColumnSlash(sliColumn);
