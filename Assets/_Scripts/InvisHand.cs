@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class InvisHand : MonoBehaviour
 {
-    //TODO: Figure out ortho cam
-    //TODO: Adjust Chip Hitboxes (Garb is more off?)
+
+
     //TODO: Music & SFX
     //TODO: GS:Horiz (slashed row is all 0s, then is row above, then row above is row 2 above, etc.)
     //TODO: Get GUI working with usedUp
@@ -145,13 +145,13 @@ public class InvisHand : MonoBehaviour
 
         }
 
-        /*
+        
         if (Input.GetKeyDown(KeyCode.C))
         {
             // Debug SwapTurn Activator
             SwapTurn();
         }
-        */
+        
 
     }
 
