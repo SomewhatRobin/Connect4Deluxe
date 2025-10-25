@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class InvisHand : MonoBehaviour
 {
+    //TODO: Figure out ortho cam
+    //TODO: Adjust Chip Hitboxes (Garb is more off?)
+    //TODO: Music & SFX
+    //TODO: GS:Horiz (slashed row is all 0s, then is row above, then row above is row 2 above, etc.)
+    //TODO: Get GUI working with usedUp
+
     //public GameObject theHand;
     public GameObject Player1Chip;
     public GameObject Player2Chip;
@@ -196,12 +202,14 @@ public class InvisHand : MonoBehaviour
     public void SwapTurn()
     {
 
-
+        //if player 1 has taken their turn
         if (nowPlaying == Player1Chip)
         {
+            //Turn off P1's Ghost, Say it's P2's turn, and Turn on P2's Ghost
             P1Ghost.SetActive(false);
             nowPlaying = Player2Chip;
             P2Ghost.SetActive(true);
+            //Check for Wins->Draws
             if (DidWin(1) == true)
             {
                 Debug.LogWarning("Player 1 Wins!");
@@ -211,11 +219,14 @@ public class InvisHand : MonoBehaviour
                 Debug.LogWarning("It's a Draw!");
             }
         }
+        //if player 2 has taken their turn
         else if (nowPlaying == Player2Chip)
         {
+            //Turn off P2's Ghost, Say it's P1's turn, and Turn on P1's Ghost
             P2Ghost.SetActive(false);
             nowPlaying = Player1Chip;
             P1Ghost.SetActive(true);
+            //Check for Wins->Draws
             if (DidWin(2) == true)
             {
                 Debug.LogWarning("Player 2 Wins!");
@@ -224,6 +235,7 @@ public class InvisHand : MonoBehaviour
             {
                 Debug.LogWarning("It's a Draw!");
             }
+            //Deactivate abilities, no matter what
             Invoke("DispelMagic", 0.1f);
 
         }

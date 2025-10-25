@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 6335663343660055324}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.08, z: 0}
-  m_LocalScale: {x: 9.76, y: 11.5, z: 6.68}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 9.76, y: 11.125, z: 6.68}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3747155512048431904}
@@ -165,6 +165,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8261527989645760315, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3824
+      objectReference: {fileID: 0}
+    - target: {fileID: -8261527989645760315, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3824
+      objectReference: {fileID: 0}
+    - target: {fileID: -8261527989645760315, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: -8261527989645760315, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7033276591943173770, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -180,6 +196,38 @@ PrefabInstance:
     - target: {fileID: -5568371526223589888, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_TagString
       value: GarbChip
+      objectReference: {fileID: 0}
+    - target: {fileID: -2577548232221058511, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -2577548232221058511, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -2577548232221058511, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: -2577548232221058511, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -466696676193830639, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.376
+      objectReference: {fileID: 0}
+    - target: {fileID: -466696676193830639, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.376
+      objectReference: {fileID: 0}
+    - target: {fileID: -466696676193830639, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.48599994
+      objectReference: {fileID: 0}
+    - target: {fileID: -466696676193830639, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Name
@@ -209,6 +257,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: GarbChip
       objectReference: {fileID: 0}
+    - target: {fileID: 5997392671579584570, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3824
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997392671579584570, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3824
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997392671579584570, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997392671579584570, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6630668333336187512, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -216,6 +280,22 @@ PrefabInstance:
     - target: {fileID: 6630668333336187512, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_TagString
       value: GarbChip
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938436600772047279, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.376
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938436600772047279, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.376
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938436600772047279, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.48599994
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938436600772047279, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7153757723986620583, guid: 1ed12bb2ea54d55489280849fe361349, type: 3}
       propertyPath: m_Layer
