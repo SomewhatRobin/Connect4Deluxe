@@ -76,7 +76,7 @@ public class SplitSelect : MonoBehaviour
                 invisHad.usedUp[4] = true; //Marks the column that got into Knife Mode as used
                 allDone = true; //Done using the ability
                 Invoke("ExorciseKnife", 0.11f); // Call Hexed() from invisHad to deactivate the knife
-                GreatSplit((sliRow*2)+1); //*Guitar Riff Plays*
+                GreatSplit((sliRow*2)+1); //*Guitar Riff Plays* - Math in the argument is so the selected row internally lines up with the visually selected row 
                 Instantiate(SliceKnife, knifeNear[sliRow].position, Quaternion.identity); //Drop the knife, so column is visibly slashed
                 Invoke("SwapToChip", 0.03f); //Swap to Chip Mode
                 invisHad.SwapTurn(); //Swap To other player's Turn
@@ -154,13 +154,14 @@ public class SplitSelect : MonoBehaviour
             }
         }
 
-        //Test all elements
-        //TestAllSpots();
+
 
         invisHad.notHere = false;
 
     }
 
+
+    //OG Code for CheckAll
     private void TestAllSpots()
     {
         for (int q = 0; q < invisHad.boardHeight; q++)

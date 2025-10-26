@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InvisHand : MonoBehaviour
 {
 
 
     //TODO: Music & SFX
-    //TODO: GS:Horiz (slashed row is all 0s, then is row above, then row above is row 2 above, etc.)
-    //TODO: Get GUI working with usedUp
+
+   
 
     //public GameObject theHand;
     public GameObject Player1Chip;
@@ -23,10 +24,10 @@ public class InvisHand : MonoBehaviour
     public GameObject KaliHand;
     //This is an array of prefabs, there are 3 variants: Hrz, Vrt, Diag
     public GameObject[] WinLight;
-    
+    public GameObject QuitPrompt;
 
 
-   // bool whoTurn = false;
+    // bool whoTurn = false;
 
     private GameObject nowPlaying;
 
@@ -61,6 +62,9 @@ public class InvisHand : MonoBehaviour
         //Turn off GS:H stuff
         Gebura.SetActive(false);
         KaliHand.SetActive(false);
+
+        //Turn off Quit Prompt
+        QuitPrompt.SetActive(false);
 
         //"Coin-flip" chance for either player to go first. Seems to really like P2 goin first, may overhaul this so it works with a start button instead
         if (Random.value > .5f)
