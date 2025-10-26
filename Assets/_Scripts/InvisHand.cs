@@ -18,6 +18,7 @@ public class InvisHand : MonoBehaviour
     public GameObject P1Ghost;
     public GameObject P2Ghost;
     public GameObject KnifeGhost;
+    public GameObject Gebura;
     public GameObject MageHand;
     //This is an array of prefabs, there are 3 variants: Hrz, Vrt, Diag
     public GameObject[] WinLight;
@@ -54,6 +55,9 @@ public class InvisHand : MonoBehaviour
         //Turn off the knife
         KnifeGhost.SetActive(false);
         MageHand.SetActive(false);
+
+        //Turn off GS:H stuff
+        Gebura.SetActive(false);
 
         //"Coin-flip" chance for either player to go first. Seems to really like P2 goin first, may overhaul this so it works with a start button instead
         if (Random.value > .5f)
@@ -138,6 +142,19 @@ public class InvisHand : MonoBehaviour
 
         }
 
+        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 4) && chipHeld && !usedUp[4])
+        {
+            //Store #4, since that's what GS:H is on
+            usedColumn = 4;
+
+
+            //Swap to Mimicry Mode
+            Gebura.SetActive(true);
+            chipHeld = false;
+
+
+        }
+
         else if (Input.GetKeyDown(AbiliKey) && !chipHeld)
         {
             //Swap to Chip Mode
@@ -170,6 +187,7 @@ public class InvisHand : MonoBehaviour
     {
         chipHeld = true;
         KnifeGhost.SetActive(false);
+        Gebura.SetActive(false);
         if (nowPlaying == Player1Chip)
         {
             P1Ghost.SetActive(true);

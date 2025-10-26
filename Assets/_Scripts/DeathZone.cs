@@ -7,7 +7,7 @@ public class DeathZone : MonoBehaviour
    
     void Update()
     {
-        if (transform.position.y < -10)
+        if (transform.position.y < -10 || transform.position.x > 40)
         {
             Destroy(this.gameObject);
         }
