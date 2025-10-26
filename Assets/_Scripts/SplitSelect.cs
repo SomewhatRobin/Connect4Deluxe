@@ -45,8 +45,11 @@ public class SplitSelect : MonoBehaviour
                     sliRow--;
                     KnifeAim();
                 }
-
-                //Else play nuh-uh.wav
+                else
+                {
+                    KnifeAim();
+                }
+       
 
             }
 
@@ -55,6 +58,11 @@ public class SplitSelect : MonoBehaviour
                 if (sliRow < 2)
                 {
                     sliRow++;
+                    KnifeAim();
+                }
+
+                else
+                {
                     KnifeAim();
                 }
 
@@ -68,7 +76,7 @@ public class SplitSelect : MonoBehaviour
                 invisHad.usedUp[4] = true; //Marks the column that got into Knife Mode as used
                 allDone = true; //Done using the ability
                 Invoke("ExorciseKnife", 0.11f); // Call Hexed() from invisHad to deactivate the knife
-                GreatSplit(sliRow); //*Guitar Riff Plays*
+                GreatSplit((sliRow*2)+1); //*Guitar Riff Plays*
                 Instantiate(SliceKnife, knifeNear[sliRow].position, Quaternion.identity); //Drop the knife, so column is visibly slashed
                 Invoke("SwapToChip", 0.03f); //Swap to Chip Mode
                 invisHad.SwapTurn(); //Swap To other player's Turn
@@ -112,22 +120,86 @@ public class SplitSelect : MonoBehaviour
             {
                 //Adds THE VOID to that spot
                 invisHad.onBoard[col, row] = 0;
-                //So the entire column does count as being filled with NOTHING
+                //So the entire row does count as being filled with NOTHING
             }
 
             else
             {
-                Debug.Log("https://wiki.teamfortress.com/w/images/2/24/Scout_invincible02.wav");
+                Debug.Log("Combat Preparation was used last turn.");
+            }
+
+
+        }
+
+        //Conditions check 4 rows up for sliRow = 0, 2 rows up for sliRow = 1, skips if sliRow = 2. 
+        if (row < 5)
+        {
+            for (int r = row; r < (invisHad.boardHeight - row); r++)
+            {
+                for (int column = 0; column < invisHad.boardWidth; column++)
+                {
+                    if (invisHad.onBoard[column, r + 1] != 0) //Finds filled spot on row above
+                    {
+                        //Adds that spot to spot below
+                        invisHad.onBoard[column, r] = invisHad.onBoard[column, r + 1];
+                        //So the entire row does count as being filled with the row above
+                        invisHad.onBoard[column, r + 1] = 0;
+                    }
+
+                    else
+                    {
+                        Debug.Log("All that remained at [" + column + ", " + r + "] was a Red Mist.");
+                    }
+                }
             }
         }
 
+        //Test all elements
+        //TestAllSpots();
+
+        invisHad.notHere = false;
+
+    }
+
+    private void TestAllSpots()
+    {
+        for (int q = 0; q < invisHad.boardHeight; q++)
+        {
+            for (int col = 0; col < invisHad.boardWidth; col++)
+            {
+                if (invisHad.onBoard[col, q] == 1) //Finds filled spot
+                {
+                    //Adds THE VOID to that spot
+                    Debug.Log("P1Chip at [" + col + ", " + q + "].");
+                    //So the entire row does count as being filled with NOTHING
+                }
+
+                else if (invisHad.onBoard[col, q] == 2) //Finds filled spot
+                {
+                    //Adds THE VOID to that spot
+                    Debug.Log("P2Chip at [" + col + ", " + q + "].");
+                    //So the entire row does count as being filled with NOTHING
+                }
+                else if (invisHad.onBoard[col, q] == 3) //Finds filled spot
+                {
+                    //Adds THE VOID to that spot
+                    Debug.Log("GarbageChip at [" + col + ", " + q + "].");
+                    //So the entire row does count as being filled with NOTHING
+                }
+                else
+                {
+                    Debug.Log("Nothing There at [" + col + ", " + q + "].");
+                }
 
 
+            }
+        }
     }
 
     private void SwapToChip() //Swap to Chip Mode
     {
         invisHad.chipHeld = true;
+        invisHad.notHere = false;
         Invoke("readyUp", 0.05f);
     }
 

@@ -31,7 +31,7 @@ public class SplitChips : MonoBehaviour
 
         if (other.transform.CompareTag("P1Chip") || other.transform.CompareTag("P2Chip") || other.transform.CompareTag("GarbChip"))
         {
-
+            //.75s delay so that falling chips aren't split & for style.
             Destroy(other.gameObject, 0.75f);
         }
 

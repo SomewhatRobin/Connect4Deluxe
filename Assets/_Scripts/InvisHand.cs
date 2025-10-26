@@ -20,6 +20,7 @@ public class InvisHand : MonoBehaviour
     public GameObject KnifeGhost;
     public GameObject Gebura;
     public GameObject MageHand;
+    public GameObject KaliHand;
     //This is an array of prefabs, there are 3 variants: Hrz, Vrt, Diag
     public GameObject[] WinLight;
     
@@ -41,6 +42,7 @@ public class InvisHand : MonoBehaviour
 
 
     public bool chipHeld = true; //Condition check for if either player would be holding a chip/isn't paused
+    public bool notHere = false; //Condition for whether GS:H is in use
     static public int selColumn = 3;
     public int usedColumn = 0; //Value to track which column activates an ability (For ColSlash/ GS:H)
     public bool[] usedUp = new bool[7]; //Array for if abilities have been used in a round
@@ -58,6 +60,7 @@ public class InvisHand : MonoBehaviour
 
         //Turn off GS:H stuff
         Gebura.SetActive(false);
+        KaliHand.SetActive(false);
 
         //"Coin-flip" chance for either player to go first. Seems to really like P2 goin first, may overhaul this so it works with a start button instead
         if (Random.value > .5f)
@@ -90,13 +93,13 @@ public class InvisHand : MonoBehaviour
     {
        
 
-        if (Input.GetKeyDown(PlaceKey) && chipHeld)
+        if (Input.GetKeyDown(PlaceKey) && chipHeld && !notHere)
         {
             PlaceChip(nowPlaying, selColumn);
             //PlaceChip calls SwapTurn
         }
 
-        if (Input.GetKeyDown(LeftKey))
+        if (Input.GetKeyDown(LeftKey) && !notHere)
         {
             if (selColumn > 0)
             {
@@ -108,7 +111,7 @@ public class InvisHand : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(RightKey))
+        if (Input.GetKeyDown(RightKey) && !notHere)
         {
             if (selColumn < 6)
             {
@@ -120,7 +123,7 @@ public class InvisHand : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6) && chipHeld && !usedUp[selColumn])
+        if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6) && chipHeld && !usedUp[selColumn] && !notHere)
         {
             usedUp[selColumn] = true;
             BoardFill();
@@ -128,7 +131,7 @@ public class InvisHand : MonoBehaviour
             SwapTurn();
         }
 
-        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5) && chipHeld && !usedUp[selColumn])
+        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5) && chipHeld && !usedUp[selColumn] && !notHere)
         {
             //Store selCol in case the knife is dropped
             usedColumn = selColumn;
@@ -149,9 +152,10 @@ public class InvisHand : MonoBehaviour
 
 
             //Swap to Mimicry Mode
+            KaliHand.SetActive(true);
             Gebura.SetActive(true);
             chipHeld = false;
-
+            notHere = true;
 
         }
 
@@ -176,6 +180,8 @@ public class InvisHand : MonoBehaviour
     {
         //Turns off MageHand so Knife defaults to the selected column/doesn't have visual mismatch
         MageHand.SetActive(false);
+        //Turns off KaliHand so Slicer doesn't act weird
+        KaliHand.SetActive(false);
     }
 
 
@@ -186,6 +192,7 @@ public class InvisHand : MonoBehaviour
     public void Hexed()
     {
         chipHeld = true;
+        notHere = false;
         KnifeGhost.SetActive(false);
         Gebura.SetActive(false);
         if (nowPlaying == Player1Chip)
@@ -257,33 +264,7 @@ public class InvisHand : MonoBehaviour
             Invoke("DispelMagic", 0.1f);
 
         }
-        /* //Forbidden Spray Nozzle
-        if(selColumn < 5 && selColumn > 1 && myWay)
-            {
-                selColumn--;
-            }
-        else if(selColumn <= 1 && myWay)
-            {
-                myWay = false;
-                selColumn++;
-            }
-        else if (selColumn < 5 && selColumn > 1 && !myWay)
-            {
-                selColumn++;
-            }
-        else if (selColumn >= 5 && !myWay)
-            {
-                myWay = true;
-                selColumn--;
-            }
-        else
-            {
-            //   Debug.Log("HELP!");
-            return;
-            }
-
-        //End of Nozzle
-        */
+        
 
     }
 
@@ -552,6 +533,42 @@ public class InvisHand : MonoBehaviour
         }
 
         return false;
+    }
+
+    //Function to check all spots
+    private void CheckAll()
+    {
+        for (int row = 0; row < boardHeight; row++)
+        {
+            for (int col = 0; col < boardWidth; col++)
+            {
+                if (onBoard[col, row] == 1) //Finds filled spot
+                {
+                    //Adds THE VOID to that spot
+                    Debug.Log("P1Chip at [" + col + ", " + row + "].");
+                    //So the entire row does count as being filled with NOTHING
+                }
+
+                else if (onBoard[col, row] == 2) //Finds filled spot
+                {
+                    //Adds THE VOID to that spot
+                    Debug.Log("P2Chip at [" + col + ", " + row + "].");
+                    //So the entire row does count as being filled with NOTHING
+                }
+                else if (onBoard[col, row] == 3) //Finds filled spot
+                {
+                    //Adds THE VOID to that spot
+                    Debug.Log("GarbageChip at [" + col + ", " + row + "].");
+                    //So the entire row does count as being filled with NOTHING
+                }
+                else
+                {
+                    Debug.Log("Nothing There at [" + col + ", " + row + "].");
+                }
+
+
+            }
+        }
     }
 
 }
