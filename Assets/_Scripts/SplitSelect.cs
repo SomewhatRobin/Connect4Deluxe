@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SplitSelect : MonoBehaviour
 {
-    //Can select between 3 sets of 2 rows
-    //The row is randomly decided between the 2
+    //Can select between 3 rows
     //KnifeSelect will be repurposed for this
 
 
@@ -26,73 +25,117 @@ public class SplitSelect : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        invisHad = GetComponentInParent<InvisHand>();
-        sliRow = 1;
-        transform.position = handBy[sliRow].position;
-        transform.rotation = handBy[sliRow].rotation;
 
-        Invoke("KnifeAim", 0.02f);
+        invisHad = GetComponentInParent<InvisHand>();
+        if (invisHad.goldRoad != 1 && invisHad.goldRoad != 2) //If this is being activated for the first time
+        {
+            sliRow = 1;
+            transform.position = handBy[sliRow].position;
+            transform.rotation = handBy[sliRow].rotation;
+            Invoke("KnifeAim", 0.02f);
+        }
+
+        else
+        {
+           RagingStorm(invisHad.doomRow);
+        }
+        
     }
 
     void Update()
     {
-        if (!invisHad.chipHeld) //None of this becomes relevant until Chip Mode is off.
+        if (!invisHad.usedUp[4]) //So this doesn't change if Horizon Splitter was used during the round
         {
-            if (Input.GetKeyDown(LeftKey) && !allDone)
+            if (!invisHad.isPause) //None of this works while paused
             {
-                if (sliRow > 0)
+                if (!invisHad.chipHeld) //None of this becomes relevant until Chip Mode is off.
                 {
-                    sliRow--;
-                    KnifeAim();
+                    if (Input.GetKeyDown(LeftKey) && !allDone)
+                    {
+                        if (sliRow > 0)
+                        {
+                            sliRow--;
+                            KnifeAim();
+                        }
+                        else
+                        {
+                            KnifeAim();
+                        }
+
+
+                    }
+
+                    if (Input.GetKeyDown(RightKey) && !allDone)
+                    {
+                        if (sliRow < 2)
+                        {
+                            sliRow++;
+                            KnifeAim();
+                        }
+
+                        else
+                        {
+                            KnifeAim();
+                        }
+
+                        //Else play nuh-uh.wav
+
+                    }
+
+
+                    if (Input.GetKeyDown(PlaceKey) && !allDone)
+                    {
+                        invisHad.doomRow = sliRow;
+                        invisHad.usedUp[4] = true; //Marks the column that got into Knife Mode as used
+                        allDone = true; //Done using the ability
+                        Invoke("ExorciseKnife", 0.11f); // Call Hexed() from invisHad to deactivate the knife
+                                                        
+                        if (!invisHad.whoTurn()) //If it's Player 1's Turn
+                        {
+                            invisHad.goldRoad = 1;
+                            Debug.LogWarning("Player 1 steps up to bat");
+                        }
+
+                        else if (invisHad.whoTurn()) //If it's Player 2's Turn
+                        {
+                            invisHad.goldRoad = 2;
+                            Debug.LogWarning("Player 2 begins to strike back");
+                        }
+
+                        else //If it's ERROR's Turn
+                        {
+                            invisHad.goldRoad = 3;
+                            Debug.LogWarning("THE GARBAGE IS SPLITTING THE HORIZON?");
+                        }
+
+                        Invoke("SwapToChip", 0.03f); //Swap to Chip Mode
+                        invisHad.SwapTurn(); //Swap To other player's Turn
+                    }
+
+                    //Unchanging
+                    if (Input.GetKeyDown(AbiliKey) && !allDone)
+                    {
+                        SwapToChip();
+                        allDone = true;
+                        Invoke("ExorciseKnife", 0.1f);
+                    }
+
                 }
-                else
-                {
-                    KnifeAim();
-                }
-       
-
             }
-
-            if (Input.GetKeyDown(RightKey) && !allDone)
-            {
-                if (sliRow < 2)
-                {
-                    sliRow++;
-                    KnifeAim();
-                }
-
-                else
-                {
-                    KnifeAim();
-                }
-
-                //Else play nuh-uh.wav
-
-            }
-
-            //TODO: Make this into GS:H
-            if (Input.GetKeyDown(PlaceKey) && !allDone)
-            {
-                invisHad.usedUp[4] = true; //Marks the column that got into Knife Mode as used
-                allDone = true; //Done using the ability
-                Invoke("ExorciseKnife", 0.11f); // Call Hexed() from invisHad to deactivate the knife
-                GreatSplit((sliRow*2)+1); //*Guitar Riff Plays* - Math in the argument is so the selected row internally lines up with the visually selected row 
-                Instantiate(SliceKnife, knifeNear[sliRow].position, Quaternion.identity); //Drop the knife, so column is visibly slashed
-                Invoke("SwapToChip", 0.03f); //Swap to Chip Mode
-                invisHad.SwapTurn(); //Swap To other player's Turn
-            }
-
-            //Unchanging
-            if (Input.GetKeyDown(AbiliKey) && !allDone)
-            {
-                SwapToChip();
-                allDone = true;
-                Invoke("ExorciseKnife", 0.1f);
-            }
-
         }
 
 
+    }
+
+    private void RagingStorm(int aimAt)
+    {
+    
+        GreatSplit((aimAt * 2) + 1); //*Guitar Riff Plays* - Math in the argument is so the selected row internally lines up with the visually selected row 
+        Instantiate(SliceKnife, knifeNear[aimAt].position, Quaternion.identity); //Throw the knife, so row is visibly split
+        //small pause
+        invisHad.goldRoad = 0; //Reset goldRoad, so SwapTurn works again
+        invisHad.SwapTurn();
+                                                                                 
     }
 
     private void KnifeAim()
@@ -107,8 +150,8 @@ public class SplitSelect : MonoBehaviour
         KaliKnife.transform.position = handBy[sliRow].position;
         KaliKnife.transform.rotation = handBy[sliRow].rotation;
     }
-    //TODO: Make this into GS:H
-    //SliceChips might still work for GS:H?
+    
+
     private void GreatSplit(int row)
     {
         //HE SAID IT HE SAID THE THING
@@ -162,6 +205,8 @@ public class SplitSelect : MonoBehaviour
 
 
     //OG Code for CheckAll
+    /*
+     
     private void TestAllSpots()
     {
         for (int q = 0; q < invisHad.boardHeight; q++)
@@ -196,6 +241,8 @@ public class SplitSelect : MonoBehaviour
             }
         }
     }
+
+    */
 
     private void SwapToChip() //Swap to Chip Mode
     {

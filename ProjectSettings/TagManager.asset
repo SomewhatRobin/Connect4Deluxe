@@ -11,6 +11,7 @@ TagManager:
   - GhostKnife
   - Knife
   - KaliKnife
+  - Boarddom
   layers:
   - Default
   - TransparentFX

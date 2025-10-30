@@ -11,24 +11,27 @@ public class InvisHand : MonoBehaviour
 
    
 
-    //public GameObject theHand;
+    //Chips
     public GameObject Player1Chip;
     public GameObject Player2Chip;
     public GameObject GarbChip;
 
+    //Chip/Knife Ghosts
     public GameObject P1Ghost;
     public GameObject P2Ghost;
     public GameObject KnifeGhost;
     public GameObject Gebura;
+    //"Hand"s for using abilities
     public GameObject MageHand;
     public GameObject KaliHand;
     //This is an array of prefabs, there are 3 variants: Hrz, Vrt, Diag
     public GameObject[] WinLight;
+    //Quit Prompt
     public GameObject QuitPrompt;
 
 
-    // bool whoTurn = false;
-
+    
+    //Sets to current player's chip
     private GameObject nowPlaying;
 
     public int boardHeight = 6;
@@ -39,14 +42,20 @@ public class InvisHand : MonoBehaviour
     public KeyCode AbiliKey;
     public KeyCode LeftKey;
     public KeyCode RightKey;
-    
 
 
+    public bool isPause = false; //Condition for whether the game is paused/won/reading manual
+    public bool smolWait = false; //Condition for ability pauses
     public bool chipHeld = true; //Condition check for if either player would be holding a chip/isn't paused
-    public bool notHere = false; //Condition for whether GS:H is in use
+
+    public bool notHere = false; //Condition for whether Hrz Split is in use
+    public int goldRoad = 0; //Condition for whether/which player is using Hrz Split
+    public int doomRow = 8; //Holds the value for the selected row in Hrz Split
+
     static public int selColumn = 3;
-    public int usedColumn = 0; //Value to track which column activates an ability (For ColSlash/ GS:H)
+    public int usedColumn = 0; //Value to track which column activates an ability (For ColSlash/ Hrz Split)
     public bool[] usedUp = new bool[7]; //Array for if abilities have been used in a round
+
     public GameObject[] handOver;
     public GameObject[] starsAbove;
     public Transform[] winSpots;
@@ -59,9 +68,12 @@ public class InvisHand : MonoBehaviour
         KnifeGhost.SetActive(false);
         MageHand.SetActive(false);
 
-        //Turn off GS:H stuff
+        //Turn off Hrz Split stuff
         Gebura.SetActive(false);
         KaliHand.SetActive(false);
+
+        //Ensure game is unpaused
+        isPause = false;
 
         //Turn off Quit Prompt
         QuitPrompt.SetActive(false);
@@ -95,87 +107,90 @@ public class InvisHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
-        if (Input.GetKeyDown(PlaceKey) && chipHeld && !notHere)
+       if (!isPause && !smolWait ) //This is here so Unity doesn't get weird with inputs it isn't supposed to use
         {
-            PlaceChip(nowPlaying, selColumn);
-            //PlaceChip calls SwapTurn
-        }
-
-        if (Input.GetKeyDown(LeftKey) && !notHere)
-        {
-            if (selColumn > 0)
+            if (Input.GetKeyDown(PlaceKey) && chipHeld && !notHere)
             {
-                selColumn--;
-                transform.position = handOver[selColumn].transform.position;
+                PlaceChip(nowPlaying, selColumn);
+                //PlaceChip calls SwapTurn
             }
 
-            //Else play nuh-uh.wav
-
-        }
-
-        if (Input.GetKeyDown(RightKey) && !notHere)
-        {
-            if (selColumn < 6)
+            if (Input.GetKeyDown(LeftKey) && !notHere)
             {
-                selColumn++;
-                transform.position = handOver[selColumn].transform.position;
+                if (selColumn > 0)
+                {
+                    selColumn--;
+                    transform.position = handOver[selColumn].transform.position;
+                }
+
+                //Else play nuh-uh.wav
+
             }
 
-            //Else play nuh-uh.wav
+            if (Input.GetKeyDown(RightKey) && !notHere)
+            {
+                if (selColumn < 6)
+                {
+                    selColumn++;
+                    transform.position = handOver[selColumn].transform.position;
+                }
 
-        }
+                //Else play nuh-uh.wav
 
-        if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6) && chipHeld && !usedUp[selColumn] && !notHere)
-        {
-            usedUp[selColumn] = true;
-            BoardFill();
-            //This takes turn, so it calls SwapTurn
-            SwapTurn();
-        }
+            }
 
-        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5) && chipHeld && !usedUp[selColumn] && !notHere)
-        {
-            //Store selCol in case the knife is dropped
-            usedColumn = selColumn;
+            if (Input.GetKeyDown(AbiliKey) && (selColumn == 1 || selColumn == 3 || selColumn == 6) && chipHeld && !usedUp[selColumn] && !notHere)
+            {
+                usedUp[selColumn] = true;
+                BoardFill();
+                //This takes turn, so it calls SwapTurn
+                SwapTurn();
+            }
 
-
-            //Swap to Knife Mode
-            MageHand.SetActive(true);
-            KnifeGhost.SetActive(true);
-            chipHeld = false;
-            
-
-        }
-
-        else if (Input.GetKeyDown(AbiliKey) && (selColumn == 4) && chipHeld && !usedUp[4])
-        {
-            //Store #4, since that's what GS:H is on
-            usedColumn = 4;
+            else if (Input.GetKeyDown(AbiliKey) && (selColumn == 0 || selColumn == 2 || selColumn == 5) && chipHeld && !usedUp[selColumn] && !notHere)
+            {
+                //Store selCol in case the knife is dropped
+                usedColumn = selColumn;
 
 
-            //Swap to Mimicry Mode
-            KaliHand.SetActive(true);
-            Gebura.SetActive(true);
-            chipHeld = false;
-            notHere = true;
+                //Swap to Knife Mode
+                MageHand.SetActive(true);
+                KnifeGhost.SetActive(true);
+                chipHeld = false;
 
-        }
 
-        else if (Input.GetKeyDown(AbiliKey) && !chipHeld)
-        {
-            //Swap to Chip Mode
-            Invoke("Hexed", 0.07f);
+            }
 
+            else if (Input.GetKeyDown(AbiliKey) && (selColumn == 4) && chipHeld && !usedUp[4])
+            {
+                //Store #4, since that's what GS:H is on
+                usedColumn = 4;
+
+
+                //Swap to Mimicry Mode
+                KaliHand.SetActive(true);
+                Gebura.SetActive(true);
+                chipHeld = false;
+                notHere = true;
+
+            }
+
+            else if (Input.GetKeyDown(AbiliKey) && !chipHeld)
+            {
+                //Swap to Chip Mode
+                Invoke("Hexed", 0.07f);
+
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                // Debug SwapTurn Activator
+                SwapTurn();
+            }
         }
 
         
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            // Debug SwapTurn Activator
-            SwapTurn();
-        }
         
 
     }
@@ -230,14 +245,18 @@ public class InvisHand : MonoBehaviour
 
     public void SwapTurn()
     {
-
+        //TODO: Figure out this flowchart tree
+        //Could add && for goldRoad == otherplayer#, effectively skip other player's turn, or go to actually use HorizSplit itself
+        //Thinking of alt pause screen while HS is in use? Could reuse/use similar idea for Garb dump so pieces don't get caught below the pile
         //if player 1 has taken their turn
-        if (nowPlaying == Player1Chip)
+        if (nowPlaying == Player1Chip && goldRoad != 2)
         {
             //Turn off P1's Ghost, Say it's P2's turn, and Turn on P2's Ghost
             P1Ghost.SetActive(false);
             nowPlaying = Player2Chip;
             P2Ghost.SetActive(true);
+
+
             //Check for Wins->Draws
             if (DidWin(1) == true)
             {
@@ -249,7 +268,7 @@ public class InvisHand : MonoBehaviour
             }
         }
         //if player 2 has taken their turn
-        else if (nowPlaying == Player2Chip)
+        else if (nowPlaying == Player2Chip && goldRoad != 1)
         {
             //Turn off P2's Ghost, Say it's P1's turn, and Turn on P1's Ghost
             P2Ghost.SetActive(false);
@@ -268,10 +287,67 @@ public class InvisHand : MonoBehaviour
             Invoke("DispelMagic", 0.1f);
 
         }
+
+        else
+        {
+            //Disable controls for a bit
+            smolWait = true;
+            KaliHand.SetActive(true);
+            Invoke("stopWait", 0.8f);
+
+            if (nowPlaying == Player1Chip)
+            {
+                //Turn off P1's Ghost, Say it's P2's turn, and Turn on P2's Ghost
+                P1Ghost.SetActive(false);
+                nowPlaying = Player2Chip;
+                P2Ghost.SetActive(true);
+
+
+                //Check for Wins->Draws
+                if (DidWin(1) == true)
+                {
+                    Debug.LogWarning("Player 1 Wins!");
+                }
+                else if (DidDraw())
+                {
+                    Debug.LogWarning("It's a Draw!");
+                }
+            }
+            //if player 2 has taken their turn
+            else if (nowPlaying == Player2Chip)
+            {
+                //Turn off P2's Ghost, Say it's P1's turn, and Turn on P1's Ghost
+                P2Ghost.SetActive(false);
+                nowPlaying = Player1Chip;
+                P1Ghost.SetActive(true);
+                //Check for Wins->Draws
+                if (DidWin(2) == true)
+                {
+                    Debug.LogWarning("Player 2 Wins!");
+                }
+                else if (DidDraw())
+                {
+                    Debug.LogWarning("It's a Draw!");
+                }
+                //Deactivate abilities, no matter what
+                Invoke("DispelMagic", 0.1f);
+
+            }
+        }
         
 
     }
 
+    public void stopWait()
+    {
+        smolWait = false;
+    }
+
+    public bool whoTurn()
+    {
+        //False for P1, True for P2
+        return nowPlaying == Player2Chip;
+    }
 
     void BoardFill()
     {
@@ -454,7 +530,7 @@ public class InvisHand : MonoBehaviour
     //Top Right of Board is x = 9.4, y = 8.8, z = 0.0334
     //A Cube w/ x,y = 1 / z = 2.3 scale covers the cells at those positions 
 
-    bool DidDraw()
+    public bool DidDraw()
     {
         for (int x = 0; x < boardWidth; x++)
         {
@@ -463,10 +539,12 @@ public class InvisHand : MonoBehaviour
                 return false; 
             }
         }
+        isPause = true;
+        //TODO: Add Restart prompt here
         return true;
     }
 
-    bool DidWin(int playerNum)
+    public bool DidWin(int playerNum)
     { 
         // winSpots[] Order mirrors order within array
         //Horizontal Check - [0]
@@ -481,6 +559,8 @@ public class InvisHand : MonoBehaviour
                     Instantiate(WinLight[0], new Vector3(winSpots[0].position.x + (float)x,
                                                          winSpots[0].position.y + (float)y,
                                                          winSpots[0].position.z), Quaternion.identity);
+                    isPause = true;
+                    //TODO: Add Restart button
                     return true;
                 }
             }
@@ -498,6 +578,8 @@ public class InvisHand : MonoBehaviour
                     Instantiate(WinLight[1], new Vector3(winSpots[1].position.x + (float)x,
                                                          winSpots[1].position.y + (float)y,
                                                          winSpots[1].position.z), Quaternion.identity);
+                    isPause = true;
+                    //TODO: Add Restart btn
                     return true;
                 }
             }
@@ -515,6 +597,8 @@ public class InvisHand : MonoBehaviour
                     Instantiate(WinLight[2], new Vector3(winSpots[2].position.x + (float)x,
                                                          winSpots[2].position.y + (float)y,
                                                          winSpots[2].position.z), Quaternion.Euler(0f, 0f, 45f));
+                    isPause = true;
+                    //TODO: Add Restart btn
                     return true;
                 }
             }
@@ -531,6 +615,8 @@ public class InvisHand : MonoBehaviour
                     Instantiate(WinLight[2], new Vector3(winSpots[3].position.x + (float)x,
                                                          winSpots[3].position.y + (float)y,
                                                          winSpots[3].position.z), Quaternion.Euler(0f, 0f, 135f));
+                    isPause = true;
+                    //TODO: Add Restart btn
                     return true;
                 }
             }

@@ -21,7 +21,7 @@ public class SplitChips : MonoBehaviour
 
     private void RotateToMist()
     {
-        transform.rotation = heldKnife.transform.rotation;
+        transform.rotation = Quaternion.Euler(0f,180f,90f);
     }
 
 

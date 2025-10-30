@@ -31,52 +31,57 @@ public class SliceSelect : MonoBehaviour
 
     void Update()
     {
-        if (!nvisHand.chipHeld) //None of this becomes relevant until Chip Mode is off.
+        if (!nvisHand.isPause) //None of this works while paused
         {
-            if (Input.GetKeyDown(LeftKey) && !allDone)
+            if (!nvisHand.chipHeld) //None of this becomes relevant until Chip Mode is off.
             {
-                if (sliColumn > 0)
+                if (Input.GetKeyDown(LeftKey) && !allDone)
                 {
-                    sliColumn--;
-                    KnifeAim();
+                    if (sliColumn > 0)
+                    {
+                        sliColumn--;
+                        KnifeAim();
+                    }
+
+                    //Else play nuh-uh.wav
+
                 }
 
-                //Else play nuh-uh.wav
-
-            }
-
-            if (Input.GetKeyDown(RightKey) && !allDone)
-            {
-                if (sliColumn < 6)
+                if (Input.GetKeyDown(RightKey) && !allDone)
                 {
-                    sliColumn++;
-                    KnifeAim();
+                    if (sliColumn < 6)
+                    {
+                        sliColumn++;
+                        KnifeAim();
+                    }
+
+                    //Else play nuh-uh.wav
+
                 }
 
-                //Else play nuh-uh.wav
+
+                if (Input.GetKeyDown(PlaceKey) && !allDone)
+                {
+                    nvisHand.usedUp[nvisHand.usedColumn] = true; //Marks the column that got into Knife Mode as used
+                    allDone = true; //Done using the ability
+                    Invoke("ExorciseKnife", 0.11f); // Call Hexed() from nvisHand to deactivate the knife
+                    ColumnSlash(sliColumn); //COLUMN ZLASH
+                    Instantiate(DropKnife, knifeOver[sliColumn].position, Quaternion.identity); //Drop the knife, so column is visibly slashed
+                    Invoke("SwapToChip", 0.03f); //Swap to Chip Mode
+                    nvisHand.SwapTurn(); //Swap To other player's Turn
+                }
+
+                if (Input.GetKeyDown(AbiliKey) && !allDone)
+                {
+                    SwapToChip();
+                    allDone = true;
+                    Invoke("ExorciseKnife", 0.1f);
+                }
 
             }
-
-
-            if (Input.GetKeyDown(PlaceKey) && !allDone)
-            {
-                nvisHand.usedUp[nvisHand.usedColumn] = true; //Marks the column that got into Knife Mode as used
-                allDone = true; //Done using the ability
-                Invoke("ExorciseKnife", 0.11f); // Call Hexed() from nvisHand to deactivate the knife
-                ColumnSlash(sliColumn); //COLUMN ZLASH
-                Instantiate(DropKnife, knifeOver[sliColumn].position, Quaternion.identity); //Drop the knife, so column is visibly slashed
-                Invoke("SwapToChip", 0.03f); //Swap to Chip Mode
-                nvisHand.SwapTurn(); //Swap To other player's Turn
-            }
-
-            if (Input.GetKeyDown(AbiliKey) && !allDone)
-            {
-                SwapToChip();
-                allDone = true;
-                Invoke("ExorciseKnife", 0.1f);
-            }
-
         }
+
+       
 
 
     }
