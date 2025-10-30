@@ -12,9 +12,9 @@
 **1. What are the controls to your game? How do we play?**   
 
 > &nbsp;
-><i>Left/Right Arrow moves the held chip/blade left/right (or up/down, when using Horizon Splitter)</i>   
-><i>Z Places the Chip, Drops the Blade, or confirms usage of Horizon Splitter</i> 
-><i>X uses the column's ability, or swaps from either blade to your chip.</i>     
+><i>Left/Right Arrow moves the held chip/blade left/right (or up/down, when using Horizon Splitter)</i>  
+><i>Z Places the Chip, Drops the Blade, or confirms usage of Horizon Splitter</i>  
+><i>X uses the column's ability, or swaps from either blade to your chip.</i>       
 > &nbsp;
  
 
@@ -22,8 +22,10 @@
 **2. What creative additions/enhancements did you make? How can we find them?**   
 
 > &nbsp;
-><i>I've added abilities to every column on the board, which either player can use once.
-These can be used by pressing X while hovering over the corresponding column.
+><i>I've added abilities to every column on the board, which either player can use once.  
+
+These can be used by pressing X while hovering over the corresponding column.  
+
 The abilities are Column Slash, Garbage Dump, and Horizon Splitter.</i>   
 > &nbsp;
  
@@ -32,8 +34,10 @@ The abilities are Column Slash, Garbage Dump, and Horizon Splitter.</i>
 **3. Any assets used that you didn't create yourself?**   
 
 > &nbsp;
-><i>The sound effect that plays when a knife hits a chip is from ZapSplat (https://www.zapsplat.com)
-Frederic Chopin - Mazurka No. 24 no. 4 in B flat minor -- Recording by Musopen (https://archive.org/details/musopen?tab=about)</i>   
+><i>The sound effect that plays when a knife hits a chip is from ZapSplat (https://www.zapsplat.com)  
+
+Frederic Chopin - Mazurka No. 24 no. 4 in B flat minor -- Recording by Musopen (https://archive.org/details/musopen?tab=about)</i>    
+ 
 > &nbsp;
  
 
@@ -41,23 +45,34 @@ Frederic Chopin - Mazurka No. 24 no. 4 in B flat minor -- Recording by Musopen (
 **4. Did you receive help from anyone outside this class or from anyone in this class that is not in a group with you?**   
 
 > &nbsp;
-><i> The project couldn't have happened without **playtesting and feedback** from:
-Matthew Robinson
-Zachary Robinson
-Alex Jones
-Rebecca Robinson
-**Shoutouts to**
-Unity Help Forums
-https://gamedevbeginner.com
-Frederic Chopin
-Musopen
+><i> The project couldn't have happened without **playtesting and feedback** from:  
+
+Matthew Robinson  
+
+Zachary Robinson  
+
+Alex Jones  
+
+Rebecca Robinson  
+
+**Shoutouts to**  
+
+Unity Help Forums  
+
+https://gamedevbeginner.com  
+
+Frederic Chopin  
+
+Musopen  
+
 </i>   
 > &nbsp;
  
 
 
 **5. Did you get help from any AI Code Assistants?**   
-
+  
+  
 > &nbsp;
 ><i>No</i>   
 > &nbsp;
@@ -67,10 +82,14 @@ Musopen
 **6. Did you get help from any online websites, videos, or tutorials?**   
 
 > &nbsp;
-><i>https://gamedevbeginner.com - Gamedev Beginner
-https://www.youtube.com/watch?v=t137iSk-JUg&list=PL1Ib2q20R591EHba_8vQXTYHifHfgknpx - Connect 4 Complete Beginner Unity Guide - Blue Buffalo
-https://docs.unity3d.com - Unity Documentation
-https://discussions.unity.com - Unity Forums</i>   
+><i>https://gamedevbeginner.com - Gamedev Beginner  
+
+https://www.youtube.com/watch?v=t137iSk-JUg&list=PL1Ib2q20R591EHba_8vQXTYHifHfgknpx - Connect 4 Complete Beginner Unity Guide - Blue Buffalo  
+
+https://docs.unity3d.com - Unity Documentation  
+
+https://discussions.unity.com - Unity Forums</i>     
+
 > &nbsp;
  
 
