@@ -5,11 +5,13 @@ using UnityEngine;
 public class SliceChips : MonoBehaviour
 {
     public GameObject heldKnife;
-  
+    public AudioSource audioSrc;
 
 
     void OnEnable()
     {
+        audioSrc = GetComponent<AudioSource>();
+
         if (heldKnife == null)
         {
             heldKnife = GameObject.FindWithTag("GhostKnife");
@@ -52,7 +54,7 @@ public class SliceChips : MonoBehaviour
         
         if (other.transform.CompareTag("P1Chip") || other.transform.CompareTag("P2Chip") || other.transform.CompareTag("GarbChip") )
         {
-
+            audioSrc.Play();
             Destroy(other.gameObject);
         }
 

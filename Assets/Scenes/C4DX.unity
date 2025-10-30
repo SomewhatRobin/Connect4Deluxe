@@ -5144,6 +5144,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1838870151}
     m_Modifications:
+    - target: {fileID: -6384895571263774433, guid: 67015cab3851e594a8a50477a05180ac, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -1165636633378998925, guid: 67015cab3851e594a8a50477a05180ac, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -14030,6 +14034,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1793811539}
     m_Modifications:
+    - target: {fileID: 1382705577498426087, guid: ab0de2c8749be1e45b78ca15f6781cda, type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3742600541119263105, guid: ab0de2c8749be1e45b78ca15f6781cda, type: 3}
       propertyPath: m_Name
       value: GhostKnife
@@ -18181,6 +18189,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6384895571263774433, guid: 67015cab3851e594a8a50477a05180ac, type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6384895571263774433, guid: 67015cab3851e594a8a50477a05180ac, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6384895571263774433, guid: 67015cab3851e594a8a50477a05180ac, type: 3}
+      propertyPath: BypassEffects
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 246212411718334686, guid: 67015cab3851e594a8a50477a05180ac, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -18351,6 +18371,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 381824841}
     m_Modifications:
+    - target: {fileID: 748939451701611687, guid: 34140ca380bf4e040a8c237a11d94358, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e931424460def4d4189246477dabbf48, type: 3}
     - target: {fileID: 2445222478174526843, guid: 34140ca380bf4e040a8c237a11d94358, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5467844

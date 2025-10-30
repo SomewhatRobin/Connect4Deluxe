@@ -5,11 +5,12 @@ using UnityEngine;
 public class SplitChips : MonoBehaviour
 {
     public GameObject heldKnife;
-
+    public AudioSource audioSrc;
 
 
     void OnEnable()
     {
+        audioSrc = GetComponent<AudioSource>();
         if (heldKnife == null)
         {
             heldKnife = GameObject.FindWithTag("KaliKnife");
@@ -32,6 +33,7 @@ public class SplitChips : MonoBehaviour
         if (other.transform.CompareTag("P1Chip") || other.transform.CompareTag("P2Chip") || other.transform.CompareTag("GarbChip"))
         {
             //.75s delay so that falling chips aren't split & for style.
+            audioSrc.Play();
             Destroy(other.gameObject, 0.75f);
         }
 
