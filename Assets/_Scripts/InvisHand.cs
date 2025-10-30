@@ -700,6 +700,19 @@ public class InvisHand : MonoBehaviour
        
     }
 
+    //Function to check for simultaneous wins
+    public bool dubbaKO()
+    {
+        if (DidWin(1) && DidWin(2))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     //Function to check all spots
     private void CheckAll()
     {

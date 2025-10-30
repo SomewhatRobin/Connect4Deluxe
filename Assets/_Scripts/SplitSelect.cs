@@ -146,7 +146,11 @@ public class SplitSelect : MonoBehaviour
     {
        
         invisHad.goldRoad = 0; //Reset goldRoad, so SwapTurn works again
-        invisHad.SwapTurn();
+        if (!invisHad.dubbaKO() && !invisHad.DidWin(1) && !invisHad.DidWin(2)) //Check if this won for both players, if P1 won, or if P2 won.
+        {
+            invisHad.SwapTurn();
+        }
+        
         
     }
 
@@ -269,6 +273,9 @@ public class SplitSelect : MonoBehaviour
         invisHad.notHere = false;
         Invoke("readyUp", 0.05f);
     }
+
+
+
 
     private void readyUp()
     {

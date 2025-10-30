@@ -30,6 +30,8 @@ public class ShowAbility : MonoBehaviour
         stopScreens[0].SetActive(false);
         stopScreens[1].SetActive(false);
         stopScreens[2].SetActive(false);
+        stopScreens[3].SetActive(false);
+        stopScreens[4].SetActive(false);
 
         malPages[0].SetActive(false);
         malPages[1].SetActive(false);
@@ -79,6 +81,11 @@ public class ShowAbility : MonoBehaviour
             stopScreens[0].SetActive(true);
             //The pause overlay is NOT a raycast target so the quit buttons still work.
         }
+        else if (ivisHand.isPause && ivisHand.dubbaKO())
+        {
+            stopScreens[3].SetActive(true);
+            //The pause overlay is NOT a raycast target so the quit buttons still work.
+        }
         else if (ivisHand.isPause && ivisHand.DidWin(1) && !ivisHand.DidWin(2))
         {
             stopScreens[1].SetActive(true);
@@ -89,11 +96,18 @@ public class ShowAbility : MonoBehaviour
             stopScreens[2].SetActive(true);
             //The pause overlay is NOT a raycast target so the quit buttons still work.
         }
+        else if (ivisHand.isPause && ivisHand.DidDraw())
+        {
+            stopScreens[4].SetActive(true);
+            //The pause overlay is NOT a raycast target so the quit buttons still work.
+        }
         else if (!ivisHand.isPause)
         {
             stopScreens[0].SetActive(false);
             stopScreens[1].SetActive(false);
             stopScreens[2].SetActive(false);
+            stopScreens[3].SetActive(false);
+            stopScreens[4].SetActive(false);
         }
         else
         {
