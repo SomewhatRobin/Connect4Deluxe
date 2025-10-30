@@ -548,84 +548,156 @@ public class InvisHand : MonoBehaviour
     }
 
     public bool DidWin(int playerNum)
-    { 
-        // winSpots[] Order mirrors order within array
-        //Horizontal Check - [0]
-        for (int x = 0; x < boardWidth - 3; x++)
-        {
-            for (int y = 0; y < boardHeight; y++)
+    {
+        if (!isPause) //Putting this here so infinite winLights don't show up if a player wins
+        {  // winSpots[] Order mirrors order within array
+           //Horizontal Check - [0]
+            for (int x = 0; x < boardWidth - 3; x++)
             {
-                if (onBoard[x,y] == playerNum && onBoard[x + 1, y] == playerNum &&
-                    onBoard[x + 2, y] == playerNum && onBoard[x + 3, y] == playerNum)
+                for (int y = 0; y < boardHeight; y++)
                 {
-                    //Offsets to where the script found the win
-                    Instantiate(WinLight[0], new Vector3(winSpots[0].position.x + (float)x,
-                                                         winSpots[0].position.y + (float)y,
-                                                         winSpots[0].position.z), Quaternion.identity);
-                    isPause = true;
-                    //TODO: Add Restart button
-                    return true;
+                    if (onBoard[x, y] == playerNum && onBoard[x + 1, y] == playerNum &&
+                        onBoard[x + 2, y] == playerNum && onBoard[x + 3, y] == playerNum)
+                    {
+                        //Offsets to where the script found the win
+                        Instantiate(WinLight[0], new Vector3(winSpots[0].position.x + (float)x,
+                                                             winSpots[0].position.y + (float)y,
+                                                             winSpots[0].position.z), Quaternion.identity);
+                        isPause = true;
+                        //TODO: Add Restart button
+                        return true;
+                    }
                 }
             }
-        }
 
-        //Vertical check - [1]
-        for (int x = 0; x < boardWidth; x++)
-        {
-            for (int y = 0; y < boardHeight - 3; y++)
+            //Vertical check - [1]
+            for (int x = 0; x < boardWidth; x++)
             {
-                if (onBoard[x, y] == playerNum && onBoard[x, y + 1] == playerNum &&
-                    onBoard[x, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
+                for (int y = 0; y < boardHeight - 3; y++)
                 {
-                    //Offsets to where the script found the win
-                    Instantiate(WinLight[1], new Vector3(winSpots[1].position.x + (float)x,
-                                                         winSpots[1].position.y + (float)y,
-                                                         winSpots[1].position.z), Quaternion.identity);
-                    isPause = true;
-                    //TODO: Add Restart btn
-                    return true;
+                    if (onBoard[x, y] == playerNum && onBoard[x, y + 1] == playerNum &&
+                        onBoard[x, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
+                    {
+                        //Offsets to where the script found the win
+                        Instantiate(WinLight[1], new Vector3(winSpots[1].position.x + (float)x,
+                                                             winSpots[1].position.y + (float)y,
+                                                             winSpots[1].position.z), Quaternion.identity);
+                        isPause = true;
+                        //TODO: Add Restart btn
+                        return true;
+                    }
                 }
             }
-        }
 
-        //Diag Upstairs - [2]
-        for (int x = 0; x < boardWidth - 3; x++)
-        {
-            for (int y = 0; y < boardHeight - 3; y++)
+            //Diag Upstairs - [2]
+            for (int x = 0; x < boardWidth - 3; x++)
             {
-                if (onBoard[x, y] == playerNum && onBoard[x + 1, y+1] == playerNum &&
-                    onBoard[x + 2, y+2] == playerNum && onBoard[x + 3, y+3] == playerNum)
+                for (int y = 0; y < boardHeight - 3; y++)
                 {
-                    //Offsets to where the script found the win, rotates to match the winspot transform
-                    Instantiate(WinLight[2], new Vector3(winSpots[2].position.x + (float)x,
-                                                         winSpots[2].position.y + (float)y,
-                                                         winSpots[2].position.z), Quaternion.Euler(0f, 0f, 45f));
-                    isPause = true;
-                    //TODO: Add Restart btn
-                    return true;
+                    if (onBoard[x, y] == playerNum && onBoard[x + 1, y + 1] == playerNum &&
+                        onBoard[x + 2, y + 2] == playerNum && onBoard[x + 3, y + 3] == playerNum)
+                    {
+                        //Offsets to where the script found the win, rotates to match the winspot transform
+                        Instantiate(WinLight[2], new Vector3(winSpots[2].position.x + (float)x,
+                                                             winSpots[2].position.y + (float)y,
+                                                             winSpots[2].position.z), Quaternion.Euler(0f, 0f, 45f));
+                        isPause = true;
+                        //TODO: Add Restart btn
+                        return true;
+                    }
                 }
             }
-        }
 
-        //Diag Reading - [3]
-        for (int x = 0; x < boardWidth - 3; x++)
-        {
-            for (int y = 0; y < boardHeight - 3; y++)
+            //Diag Reading - [3]
+            for (int x = 0; x < boardWidth - 3; x++)
             {
-                if (onBoard[x + 3, y] == playerNum && onBoard[x + 2, y + 1] == playerNum &&
-                    onBoard[x + 1, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
+                for (int y = 0; y < boardHeight - 3; y++)
                 {
-                    Instantiate(WinLight[2], new Vector3(winSpots[3].position.x + (float)x,
-                                                         winSpots[3].position.y + (float)y,
-                                                         winSpots[3].position.z), Quaternion.Euler(0f, 0f, 135f));
-                    isPause = true;
-                    //TODO: Add Restart btn
-                    return true;
+                    if (onBoard[x + 3, y] == playerNum && onBoard[x + 2, y + 1] == playerNum &&
+                        onBoard[x + 1, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
+                    {
+                        Instantiate(WinLight[2], new Vector3(winSpots[3].position.x + (float)x,
+                                                             winSpots[3].position.y + (float)y,
+                                                             winSpots[3].position.z), Quaternion.Euler(0f, 0f, 135f));
+                        isPause = true;
+                        //TODO: Add Restart btn
+                        return true;
+                    }
                 }
             }
+
+            return false;
+
         }
 
-        return false;
+        else
+        {
+            for (int x = 0; x < boardWidth - 3; x++)
+            {
+                for (int y = 0; y < boardHeight; y++)
+                {
+                    if (onBoard[x, y] == playerNum && onBoard[x + 1, y] == playerNum &&
+                        onBoard[x + 2, y] == playerNum && onBoard[x + 3, y] == playerNum)
+                    {
+                       
+                        isPause = true;
+                        //TODO: Add Restart button
+                        return true;
+                    }
+                }
+            }
+
+            //Vertical check - [1]
+            for (int x = 0; x < boardWidth; x++)
+            {
+                for (int y = 0; y < boardHeight - 3; y++)
+                {
+                    if (onBoard[x, y] == playerNum && onBoard[x, y + 1] == playerNum &&
+                        onBoard[x, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
+                    {
+                       
+                        isPause = true;
+                        //TODO: Add Restart btn
+                        return true;
+                    }
+                }
+            }
+
+            //Diag Upstairs - [2]
+            for (int x = 0; x < boardWidth - 3; x++)
+            {
+                for (int y = 0; y < boardHeight - 3; y++)
+                {
+                    if (onBoard[x, y] == playerNum && onBoard[x + 1, y + 1] == playerNum &&
+                        onBoard[x + 2, y + 2] == playerNum && onBoard[x + 3, y + 3] == playerNum)
+                    {
+                        
+                        isPause = true;
+                        //TODO: Add Restart btn
+                        return true;
+                    }
+                }
+            }
+
+            //Diag Reading - [3]
+            for (int x = 0; x < boardWidth - 3; x++)
+            {
+                for (int y = 0; y < boardHeight - 3; y++)
+                {
+                    if (onBoard[x + 3, y] == playerNum && onBoard[x + 2, y + 1] == playerNum &&
+                        onBoard[x + 1, y + 2] == playerNum && onBoard[x, y + 3] == playerNum)
+                    {
+                        
+                        isPause = true;
+                        //TODO: Add Restart btn
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+       
     }
 
     //Function to check all spots
