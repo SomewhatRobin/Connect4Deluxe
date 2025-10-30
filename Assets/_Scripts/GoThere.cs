@@ -8,11 +8,19 @@ public class GoThere : MonoBehaviour
     private Rigidbody rb;
     public float fallForce;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+        StartCoroutine(startLag());
+
         rb = GetComponent<Rigidbody>();
 
         //Stolen wholesale from the ball in box. This jumps the knife down, making it go faster without dropping it from a time-consuming height.
+       
+    }
+
+    IEnumerator startLag()
+    {
+        yield return new WaitForSeconds(2);
         rb.AddForce(Vector3.right * fallForce, ForceMode.Impulse);
     }
 

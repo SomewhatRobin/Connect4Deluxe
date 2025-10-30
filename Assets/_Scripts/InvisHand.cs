@@ -234,9 +234,9 @@ public class InvisHand : MonoBehaviour
         if (UpdateOnBoard(curPlayer, column))
         {
             Instantiate(curPlayer, handOver[column].transform.position, Quaternion.identity);
-
+            smolWait = true; //Small wait so chips don't get stuck on each other
             SwapTurn();
-
+            Invoke("stopWait", 0.4f);
         }
         
     }
@@ -293,7 +293,7 @@ public class InvisHand : MonoBehaviour
             //Disable controls for a bit
             smolWait = true;
             KaliHand.SetActive(true);
-            Invoke("stopWait", 0.8f);
+            //Invoke("stopWait", 0.8f);
 
             if (nowPlaying == Player1Chip)
             {
@@ -351,6 +351,8 @@ public class InvisHand : MonoBehaviour
 
     void BoardFill()
     {
+
+        smolWait = true;
         //Quaternion.Euler(0f,90f,0f) to rotate GarbChips to match other chips
 
         //Check for col 0 full
@@ -494,6 +496,7 @@ public class InvisHand : MonoBehaviour
             Debug.Log("What the?!");
         }
 
+        Invoke("stopWait", 0.8f);
 
     }
 

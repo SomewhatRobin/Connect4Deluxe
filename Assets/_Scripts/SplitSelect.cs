@@ -38,6 +38,8 @@ public class SplitSelect : MonoBehaviour
         else
         {
            RagingStorm(invisHad.doomRow);
+            Invoke("pastStorm", 2.1f);
+            Invoke("waitOver", 2.4f);
         }
         
     }
@@ -112,14 +114,16 @@ public class SplitSelect : MonoBehaviour
                         invisHad.SwapTurn(); //Swap To other player's Turn
                     }
 
-                    //Unchanging
-                    if (Input.GetKeyDown(AbiliKey) && !allDone)
-                    {
-                        SwapToChip();
-                        allDone = true;
-                        Invoke("ExorciseKnife", 0.1f);
-                    }
+                   
 
+                }
+
+                //Unchanging
+                if (Input.GetKeyDown(AbiliKey) && !allDone)
+                {
+                    SwapToChip();
+                    allDone = true;
+                    Invoke("ExorciseKnife", 0.1f);
                 }
             }
         }
@@ -129,13 +133,26 @@ public class SplitSelect : MonoBehaviour
 
     private void RagingStorm(int aimAt)
     {
-    
+
         GreatSplit((aimAt * 2) + 1); //*Guitar Riff Plays* - Math in the argument is so the selected row internally lines up with the visually selected row 
         Instantiate(SliceKnife, knifeNear[aimAt].position, Quaternion.identity); //Throw the knife, so row is visibly split
-        //small pause
+        invisHad.smolWait = true;                                                             //small pause
+
+
+
+    }
+
+    private void pastStorm()
+    {
+       
         invisHad.goldRoad = 0; //Reset goldRoad, so SwapTurn works again
         invisHad.SwapTurn();
-                                                                                 
+        
+    }
+
+    private void waitOver()
+    {
+        invisHad.smolWait = false;
     }
 
     private void KnifeAim()
