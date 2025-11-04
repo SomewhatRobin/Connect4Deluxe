@@ -34,13 +34,20 @@ public class ChipSounds : MonoBehaviour
         {
             if (collision.transform.CompareTag("P1Chip") || collision.transform.CompareTag("P2Chip") || collision.transform.CompareTag("GarbChip"))
             {
+                if (audioSrc.Length >= 1)
+                {
+                    audioSrc[0].Play();
+                }
                 madeNoise = true;
-                audioSrc[0].Play();
             }
             else if (collision.transform.CompareTag("Boarddom"))
             {
+                if (audioSrc.Length >= 2)
+                {
+                    audioSrc[1].Play();
+                }
                 madeNoise = true;
-                audioSrc[1].Play();
+                
             }
         }
 
